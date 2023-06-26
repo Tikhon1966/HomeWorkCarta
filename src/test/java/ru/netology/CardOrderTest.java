@@ -11,6 +11,7 @@ class CardOrderTest {
         open("http://localhost:9999/");
         $("[data-test-id='city'] input").setValue("Москва");
         $("[data-test-id='date'] input").setValue("28.06.23");
+        $("[data-test-id='name'] input").setValue("Петров-Водкин Сергей");
 
     }
 
