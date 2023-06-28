@@ -2,6 +2,7 @@ package ru.netology;
 
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.openqa.selenium.remote.tracing.EventAttribute.setValue;
 
 class CardOrderTest {
 
@@ -28,13 +30,13 @@ class CardOrderTest {
     void shouldCardOrder() {
         open("http://localhost:9999/");
         $("[data-test-id='city'] input").setValue("Казань");
-        $("[data-test-id='date'] input").doubleClick().setValue(getPossibleData(3));
+        $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(getPossibleData(4));
         $("[data-test-id='name'] input").setValue("Петров-Водкин Сергей");
         $("[data-test-id='phone'] input").setValue("+79161111111");
         $(".checkbox__box").click();
         $(".button").click();
         $(byText("Успешно!")).shouldBe(visible, Duration.ofSeconds(15));
-        $("[data-test-id=notification] .notification__content").shouldBe(visible, Duration.ofSeconds(15));
-
+        $(byText(getPossibleData(4))).shouldBe(visible, Duration.ofSeconds(15));
     }
 }
